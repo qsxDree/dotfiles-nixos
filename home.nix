@@ -17,6 +17,7 @@
 
   imports = [
     ./git.nix
+    ./code.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -80,4 +81,11 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.cursor.enable = true;
+
+  # direnv
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true; # Or enableZshIntegration if you use Zsh
+    nix-direnv.enable = true;
+  };
 }

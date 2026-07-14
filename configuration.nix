@@ -11,11 +11,20 @@
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 5;
-
-  boot.loader.systemd-boot.configurationLimit = 3;
+  boot.loader = {
+    timeout = 5;
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/efi";
+    };
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      gfxmodeEfi = "1920x1080";
+      useOSProber = true;
+    };
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -26,6 +35,75 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # Enable Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        # Shows battery charge of connected devices on supported
+        # Bluetooth adapters. Defaults to 'false'.
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        # Enable all controllers when they are found. This includes
+        # adapters present on start as well as adapters that are plugged
+        # in later on. Defaults to 'true'.
+        AutoEnable = true;
+      };
+    };
+  };
+
+  # Enable OpenGL
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  # Load the Nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia = {
+    # Modesetting is required for most Wayland compositors
+    modesetting.enable = true;
+
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+    # Enable this if you have graphical corruption on resume from suspend.
+    powerManagement.enable = false;
+
+    # Fine-grained power management. Turns off GPU when not in use.
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    powerManagement.finegrained = false;
+
+    # Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # open = false;
+
+    # Enable the Nvidia settings menu,
+    # accessible via `nvidia-settings`.
+    nvidiaSettings = true;
+
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  # Optimus PRIME setup for hybrid graphics
+  hardware.nvidia.prime = {
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
+    };
+
+    # IMPORTANT: Replace these with your actual Bus IDs!
+    # If your processor is AMD, change "intelBusId" to "amdgpuBusId"
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
