@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "reee";
@@ -18,6 +20,8 @@
   imports = [
     ./git.nix
     ./code.nix
+    ./fonts.nix
+    ./terminal
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -80,12 +84,4 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  programs.cursor.enable = true;
-
-  # direnv
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true; # Or enableZshIntegration if you use Zsh
-    nix-direnv.enable = true;
-  };
 }

@@ -50,7 +50,9 @@
         "window.titleBarStyle" = lib.mkForce "custom";
         "window.menuBarVisibility" = lib.mkForce "classic";
         "editor.fontSize" = lib.mkForce 14;
-        #         "editor.fontFamily" = lib.mkForce "'MonaspiceKr Nerd Font', monospace";
+        "editor.fontFamily" = lib.mkForce "'DejaVuSansM Nerd Font', monospace";
+        "terminal.integrated.fontFamily" = lib.mkForce "'SpaceMono Nerd Font', monospace";
+        "terminal.integrated.fontSize" = lib.mkForce 14;
         #         "workbench.colorTheme" = "Catppuccin Mocha";
         #         "workbench.iconTheme" = "catppuccin-mocha";
         #         "catppuccin.accentColor" = "mauve";
@@ -145,5 +147,15 @@
         };
       };
     };
+  };
+
+  # Cursor
+  programs.cursor.enable = true;
+
+  # direnv
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true; # Or enableZshIntegration if you use Zsh
+    nix-direnv.enable = true;
   };
 }
