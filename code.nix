@@ -27,6 +27,7 @@
         ms-python.vscode-pylance
         # C/C++
         ms-vscode.cpptools
+        ms-vscode.cpptools-extension-pack
         # Go
         golang.go
         # Utility
@@ -53,9 +54,9 @@
         "editor.fontFamily" = lib.mkForce "'DejaVuSansM Nerd Font', monospace";
         "terminal.integrated.fontFamily" = lib.mkForce "'SpaceMono Nerd Font', monospace";
         "terminal.integrated.fontSize" = lib.mkForce 14;
-        #         "workbench.colorTheme" = "Catppuccin Mocha";
-        #         "workbench.iconTheme" = "catppuccin-mocha";
-        #         "catppuccin.accentColor" = "mauve";
+        # "workbench.colorTheme" = "Catppuccin Mocha";
+        # "workbench.iconTheme" = "catppuccin-mocha";
+        # "catppuccin.accentColor" = "mauve";
         "vsicons.dontShowNewVersionMessage" = true;
         "explorer.confirmDragAndDrop" = false;
         "editor.fontLigatures" = true;
@@ -79,11 +80,24 @@
         "editor.codeActionsOnSave" = {
           "source.organizeImports" = "explicit";
         };
+
+        # Disable organize imports for C/C++ to prevent infinite loading on save
+        "[cpp]" = {
+          "editor.codeActionsOnSave" = {
+            "source.organizeImports" = "never";
+          };
+        };
+        "[c]" = {
+          "editor.codeActionsOnSave" = {
+            "source.organizeImports" = "never";
+          };
+        };
+
         "editor.inlineSuggest.enabled" = true;
-        "editor.formatOnSave" = true;
+        "editor.formatOnSave" = false;
         "editor.formatOnPaste" = true;
 
-        "editor.minimap.enabled" = false;
+        "editor.minimap.enabled" = true;
         "workbench.sideBar.location" = "left";
         "workbench.layoutControl.type" = "menu";
         "workbench.editor.limit.enabled" = true;
@@ -151,6 +165,9 @@
 
   # Cursor
   programs.cursor.enable = true;
+
+  #Antigravity
+  programs.antigravity.enable = true;
 
   # direnv
   programs.direnv = {

@@ -110,6 +110,14 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
+  # Docker
+  virtualisation.docker = {
+    enable = true;
+
+    # This prevents the daemon from starting when you boot the computer
+    enableOnBoot = false;
+  };
+
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
 
@@ -168,7 +176,7 @@
   users.users."reee" = {
     isNormalUser = true;
     description = "qsxdree";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     packages = with pkgs; [
       kdePackages.kate
       #  thunderbird
