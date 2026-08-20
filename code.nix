@@ -93,7 +93,7 @@
           };
         };
 
-        "editor.inlineSuggest.enabled" = true;
+        "editor.inlineSuggest.enabled" = false;
         "editor.formatOnSave" = false;
         "editor.formatOnPaste" = true;
 

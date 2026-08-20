@@ -32,7 +32,7 @@
   users.users.reee.shell = pkgs.zsh;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = true;  # Enables wireless via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -120,6 +120,7 @@
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
+  services.timesyncd.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_IN";
