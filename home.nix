@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   # Home Manager needs a bit of information about you and the paths it should
@@ -22,6 +23,8 @@
     ./code.nix
     ./fonts.nix
     ./terminal
+#     ./zen.nix
+    ./brave.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

@@ -68,6 +68,21 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+      # Intel hardware video acceleration (VA-API / QuickSync)
+      intel-media-driver
+      # OpenCL and Level Zero for Intel graphics compute
+      intel-compute-runtime
+      # Video Decode and Presentation API for Unix
+      libvdpau-va-gl
+    ];
+  };
+
+  # Direct applications to use the modern Intel media driver for VA-API
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+    NIXOS_OZONE_WL = "1"; # Forces Chromium/Brave/Electron apps to use Wayland
+    MOZ_ENABLE_WAYLAND = "1";
   };
 
   # Load the Nvidia driver for Xorg and Wayland
@@ -79,15 +94,15 @@
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption on resume from suspend.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
+    powerManagement.finegrained = true;
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).
-    # open = false;
+    open = true;
 
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
@@ -185,7 +200,7 @@
   };
 
   # Install firefox.
-  programs.firefox.enable = true;
+  programs.firefox.enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
