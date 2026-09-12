@@ -163,12 +163,6 @@
     };
   };
 
-  # Cursor
-  programs.cursor.enable = true;
-
-  #Antigravity
-  programs.antigravity.enable = true;
-
   # direnv
   programs.direnv = {
     enable = true;

@@ -23,8 +23,10 @@
     ./code.nix
     ./fonts.nix
     ./terminal
-#     ./zen.nix
+    #     ./zen.nix
     ./brave.nix
+    ./multimedia.nix
+    ./agents
   ];
 
   nixpkgs.config.allowUnfree = true;
