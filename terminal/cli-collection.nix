@@ -13,5 +13,6 @@
 
     ripgrep
     fd
+    uv
   ];
 }

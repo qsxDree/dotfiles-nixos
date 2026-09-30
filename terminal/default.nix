@@ -99,6 +99,9 @@ in {
   in {
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
+    envExtra = ''
+      export PATH="$HOME/.local/bin:$PATH"
+    '';
     autocd = true;
     defaultKeymap = "viins";
     history = {
@@ -178,4 +181,8 @@ in {
     enable = true;
     enableZshIntegration = true;
   };
+
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
+  ];
 }
