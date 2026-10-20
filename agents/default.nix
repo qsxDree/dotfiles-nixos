@@ -5,6 +5,7 @@
     ./cursor.nix
     ./antigravity.nix
     ./claude.nix
+    ./opencode.nix
   ];
 
   # Shared dependencies for the AI agents

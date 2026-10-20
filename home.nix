@@ -27,6 +27,7 @@
     ./brave.nix
     ./multimedia.nix
     ./agents
+#     ./firefox
   ];
 
   nixpkgs.config.allowUnfree = true;

@@ -14,6 +14,11 @@
 
     #llm agents
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    betterfox = {
+      url = "github:yokoffing/Betterfox";
+      flake = false;
+    };
   };
 
   outputs = {

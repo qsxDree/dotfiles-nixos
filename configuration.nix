@@ -63,7 +63,6 @@
       };
     };
   };
-
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
@@ -87,7 +86,7 @@
 
   # Load the Nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
-
+  hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia = {
     # Modesetting is required for most Wayland compositors
     modesetting.enable = true;
@@ -159,7 +158,6 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -207,9 +205,17 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
+    (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+      [General]
+      background=/var/lib/sddm-bg/background.png
+    '')
+  ];
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/sddm-bg 0755 root root -"
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -245,6 +251,13 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 7d";
   };
+
+  systemd.services.nix-gc.preStart = ''
+    ${config.nix.package}/bin/nix-env \
+      --profile /nix/var/nix/profiles/system \
+      --delete-generations +3
+  '';
+
+  boot.loader.grub.configurationLimit = 3;
 }
